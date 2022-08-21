@@ -3,10 +3,15 @@ import PropTypes from 'prop-types';
 import s from './Searchbar.module.css'
 
 class Searchbar extends Component {
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    this.props.onSubmit(e.target.elements['search'].value.toLowerCase().trim())
+  }
+
   render() {
     return (
       <header className={s.container}>
-        <form className={s.form}>
+        <form className={s.form} onSubmit={this.handleFormSubmit}>
           <button type="submit" className={s.btn}>
             <span className={s.btnLabel}>Search</span>
           </button>
@@ -14,6 +19,7 @@ class Searchbar extends Component {
           <input
             className={s.input}
             type="text"
+            name='search'
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
@@ -24,6 +30,8 @@ class Searchbar extends Component {
   }
 }
 
-Searchbar.propTypes = {};
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func,
+};
 
 export default Searchbar;
