@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import pixabayApi, { ITEMS_PER_PAGE } from '../../services/pixabay.api';
 import ImageGallery from '../ImageGallery/ImageGallery';
@@ -15,7 +15,7 @@ class ImageGalleryStatus extends PureComponent {
 
   async componentDidUpdate(prevProps, prevState, snapshot) {
     const { search } = this.props;
-    const { page, loading } = this.state;
+    const { page } = this.state;
     if (prevProps.search === search && prevState.page === page) {
       return;
     }

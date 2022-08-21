@@ -1,8 +1,7 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import s from './ImageGallery.module.css';
 import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
-import Button from '../Button/Button';
 
 class ImageGallery extends PureComponent {
   state = {
@@ -10,7 +9,6 @@ class ImageGallery extends PureComponent {
   };
 
   render() {
-    const { visibilityBtn } = this.state;
     const { images } = this.props;
 
     return (
