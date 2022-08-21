@@ -14,10 +14,12 @@ class ImageGallery extends PureComponent {
     return (
       <ul className={s.container}>
         {images.map(img => {
-          const { id, webformatURL, largeImageURL } = img;
+          const { id, webformatURL, largeImageURL, tags } = img;
+          console.log(img)
           return (
             <ImageGalleryItem
               key={id}
+              tags={tags}
               webformatURL={webformatURL}
               largeImageURL={largeImageURL}
             />);

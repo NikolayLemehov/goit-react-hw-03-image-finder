@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 class Modal extends Component {
   render() {
@@ -13,6 +13,6 @@ class Modal extends Component {
   }
 }
 
-Modal.propTypes = {};
+// Modal.propTypes = {};
 
 export default Modal;

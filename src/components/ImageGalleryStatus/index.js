@@ -1,1 +1,1 @@
-import {default} from './ImageGalleryStatus'
+export {default} from './ImageGalleryStatus'

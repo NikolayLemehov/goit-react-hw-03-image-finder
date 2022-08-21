@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import pixabayApi, { ITEMS_PER_PAGE } from '../../services/pixabay.api';
 import ImageGallery from '../ImageGallery/ImageGallery';
-import Button from '../Button/Button';
+import Button from '../Button';
 
 class ImageGalleryStatus extends PureComponent {
   state = {
