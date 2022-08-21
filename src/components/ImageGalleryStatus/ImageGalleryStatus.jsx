@@ -10,7 +10,6 @@ class ImageGalleryStatus extends PureComponent {
     page: 1,
     totalHits: null,
     error: null,
-    status: Status.IDLE,
     loading: false,
   };
 
