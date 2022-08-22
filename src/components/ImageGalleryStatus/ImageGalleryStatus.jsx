@@ -17,7 +17,7 @@ class ImageGalleryStatus extends PureComponent {
   };
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
-    return (prevProps.search === this.state.search ? window.scrollY : 0);
+    return (prevProps.search === this.props.search ? window.scrollY : 0);
   }
 
   async componentDidUpdate(prevProps, prevState, snapshot) {
