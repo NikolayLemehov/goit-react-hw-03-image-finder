@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid'
+import s from './ImageGalleryStatus.module.css'
 import pixabayApi, { ITEMS_PER_PAGE } from '../../services/pixabay.api';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import Button from '../Button';
@@ -13,6 +14,10 @@ class ImageGalleryStatus extends PureComponent {
     error: null,
     loading: false,
   };
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    return window.scrollY;
+  }
 
   async componentDidUpdate(prevProps, prevState, snapshot) {
     const { search } = this.props;
@@ -29,6 +34,7 @@ class ImageGalleryStatus extends PureComponent {
       .then(({ hits, totalHits }) => {
         const uniqueHits = this.addIdToCollection(hits);
         // const uniqueHits = hits; // towe
+
         this.setState(p => {
           const images = prevProps.search === search
             ? [...p.images, ...uniqueHits]
@@ -38,6 +44,7 @@ class ImageGalleryStatus extends PureComponent {
             totalHits,
           });
         });
+        setTimeout(() => window.scroll(0,snapshot))
       })
       .catch((e) => {
         this.setState({
@@ -68,7 +75,7 @@ class ImageGalleryStatus extends PureComponent {
     const pages = this.calcPages(totalHits);
 
     return (
-      <>
+      <div className={s.container}>
         {images.length === 0 && <p>No images</p>}
         {error && <p>{error}
           <button
@@ -82,9 +89,10 @@ class ImageGalleryStatus extends PureComponent {
             <p>page/pages: {page}/{pages}</p>
             {pages > page && <Button onClick={this.handleMoreBtnClick} />}
             <ImageGallery images={images} onClickImg={onClickImg} />
+            {pages > page && <Button onClick={this.handleMoreBtnClick} />}
           </>
         )}
-      </>
+      </div>
     );
   }
 }

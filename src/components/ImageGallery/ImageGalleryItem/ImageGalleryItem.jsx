@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import s from './ImageGalleryItem.module.css'
 
 class ImageGalleryItem extends Component {
-  // getSnapshotBeforeUpdate(prevProps, prevState) {
-  //   return
-  // }
-
   handleClickImg = () => {
     const {onClickImg, largeImageURL, tags} = this.props;
     onClickImg({largeImageURL, tags});

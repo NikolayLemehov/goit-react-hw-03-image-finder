@@ -10,7 +10,7 @@ class ImageGallery extends PureComponent {
 
   render() {
     const { images, onClickImg } = this.props;
-    console.log(images.map(it => it.id))
+    // console.log(images.map(it => it.id))
 
     return (
       <ul className={s.container}>
