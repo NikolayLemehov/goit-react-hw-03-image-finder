@@ -7,20 +7,32 @@ class ImageGalleryItem extends Component {
   //   return
   // }
 
+  handleClickImg = () => {
+    const {onClickImg, largeImageURL, tags} = this.props;
+    onClickImg({largeImageURL, tags});
+  }
+
   render() {
-    const {webformatURL, tags} = this.props;
+    const {webformatURL, tags, id} = this.props;
     return (
       <li className={s.container}>
-        <img className={s.image} src={webformatURL} alt={tags} />
+        <img
+          className={s.image}
+          src={webformatURL}
+          alt={tags}
+          onClick={this.handleClickImg}
+          data-key={id}
+        />
       </li>
     );
   }
 }
 
 ImageGalleryItem.propTypes = {
+  tags: PropTypes.string.isRequired,
   webformatURL: PropTypes.string.isRequired,
   largeImageURL: PropTypes.string.isRequired,
-  tags: PropTypes.string.isRequired,
+  onClickImg: PropTypes.func,
 };
 
 export default ImageGalleryItem;

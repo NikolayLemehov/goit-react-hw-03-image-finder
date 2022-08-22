@@ -9,29 +9,31 @@ class ImageGallery extends PureComponent {
   };
 
   render() {
-    const { images } = this.props;
+    const { images, onClickImg } = this.props;
+    console.log(images.map(it => it.id))
 
     return (
       <ul className={s.container}>
         {images.map(img => {
-          const { id, webformatURL, largeImageURL, tags } = img;
-          console.log(img)
+          const { frontId, id, webformatURL, largeImageURL, tags } = img;
           return (
             <ImageGalleryItem
-              key={id}
+              key={frontId}
+              id={id}
               tags={tags}
               webformatURL={webformatURL}
               largeImageURL={largeImageURL}
+              onClickImg={onClickImg}
             />);
         })}
-        {/*{visibilityBtn && <Button />}*/}
       </ul>
     );
   }
 }
 
 ImageGallery.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.shape(ImageGalleryItem.propTypes)),
+  images: PropTypes.arrayOf(PropTypes.shape({ ...ImageGalleryItem.propTypes })),
+  onClickImg: PropTypes.func.isRequired,
 };
 
 export default ImageGallery;
