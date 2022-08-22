@@ -5,6 +5,7 @@ import s from './ImageGalleryStatus.module.css'
 import pixabayApi, { ITEMS_PER_PAGE } from '../../services/pixabay.api';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import Button from '../Button';
+import Loader from '../Loader';
 
 class ImageGalleryStatus extends PureComponent {
   state = {
@@ -16,7 +17,7 @@ class ImageGalleryStatus extends PureComponent {
   };
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
-    return window.scrollY;
+    return (prevProps.search === this.state.search ? window.scrollY : 0);
   }
 
   async componentDidUpdate(prevProps, prevState, snapshot) {
@@ -24,6 +25,10 @@ class ImageGalleryStatus extends PureComponent {
     const { page } = this.state;
     if (prevProps.search === search && prevState.page === page) {
       return;
+    }
+    if (prevProps.search !== search) {
+      this.setState({ page: 1 });
+      window.scroll(0, 0);
     }
 
     this.setState({
@@ -83,15 +88,17 @@ class ImageGalleryStatus extends PureComponent {
             onClick={() => this.setState({ error: '' })}>Close Error
           </button>
         </p>}
-        {loading && <p>Loading...</p>}
         {!error && !loading && images.length > 0 && (
           <>
-            <p>page/pages: {page}/{pages}</p>
-            {pages > page && <Button onClick={this.handleMoreBtnClick} />}
             <ImageGallery images={images} onClickImg={onClickImg} />
-            {pages > page && <Button onClick={this.handleMoreBtnClick} />}
+            {pages > page && <Button
+              onClick={this.handleMoreBtnClick}
+              pages={pages}
+              page={page}
+            />}
           </>
         )}
+        {loading && <Loader/>}
       </div>
     );
   }
