@@ -16,11 +16,7 @@ class ImageGalleryStatus extends PureComponent {
     loading: false,
   };
 
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    return (prevProps.search === this.props.search ? window.scrollY : 0);
-  }
-
-  async componentDidUpdate(prevProps, prevState, snapshot) {
+  async componentDidUpdate(prevProps, prevState) {
     const { search } = this.props;
     const { page } = this.state;
     if (prevProps.search === search && prevState.page === page) {
@@ -49,7 +45,6 @@ class ImageGalleryStatus extends PureComponent {
             totalHits,
           });
         });
-        setTimeout(() => window.scroll(0,snapshot))
       })
       .catch((e) => {
         this.setState({
@@ -88,10 +83,10 @@ class ImageGalleryStatus extends PureComponent {
             onClick={() => this.setState({ error: '' })}>Close Error
           </button>
         </p>}
-        {!error && !loading && images.length > 0 && (
+        {!error && images.length > 0 && (
           <>
             <ImageGallery images={images} onClickImg={onClickImg} />
-            {pages > page && <Button
+            {(pages > page && !loading) && <Button
               onClick={this.handleMoreBtnClick}
               pages={pages}
               page={page}
